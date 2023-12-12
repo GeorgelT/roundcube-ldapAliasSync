@@ -41,6 +41,7 @@ $rcmail_config['ldapAliasSync'] = array(
 		#'server' => 'localhost',
 
 		# LDAP server port (optional)
+		# Must be specified if using ldaps (usually 636)
 		# Default: '389'
 		#'port' => '389',
 
