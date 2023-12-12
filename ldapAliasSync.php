@@ -105,7 +105,7 @@ class ldapAliasSync extends rcube_plugin {
 
 		$con = ldap_connect($uri);
 
-		if ( is_resource($con) ) {
+		if ( $con !== false ) {
 			$this->log_debug("LDAP resource: ".$uri);
 			ldap_set_option($con, LDAP_OPT_PROTOCOL_VERSION, 3);
 		} else {
