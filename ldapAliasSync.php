@@ -470,19 +470,19 @@ class ldapAliasSync extends rcube_plugin {
 	}
 
 	function log_warning($msg) {
-		if ( $this->cfg_general['log_level'] >= 1 ) {
+		if ( isset($this->cfg_general['log_level']) && $this->cfg_general['log_level'] >= 1 ) {
 			rcube::write_log('ldapAliasSync', "WARNING: ".$msg);
 		}
 	}
 
 	function log_info($msg) {
-		if ( $this->cfg_general['log_level'] >= 2 ) {
+		if ( isset($this->cfg_general['log_level']) && $this->cfg_general['log_level'] >= 2 ) {
 			rcube::write_log('ldapAliasSync', "INFO: ".$msg);
 		}
 	}
 
 	function log_debug($msg) {
-		if ( $this->cfg_general['log_level'] >= 3 ) {
+		if ( isset($this->cfg_general['log_level']) &&  $this->cfg_general['log_level'] >= 3 ) {
 			rcube::write_log('ldapAliasSync', "DEBUG: ".$msg);
 		}
 	}
@@ -588,7 +588,7 @@ class ldapAliasSync extends rcube_plugin {
 		} else {
 			$config['attr_org'] = strtolower($config['attr_org']);
 		}
-		if (! $config['attr_reply']) {
+		if (! isset($config['attr_reply'])) {
 			$config['attr_reply'] = '';
 		} else {
 			$config['attr_reply'] = strtolower($config['attr_reply']);
