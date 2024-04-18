@@ -302,7 +302,7 @@ class ldapAliasSync extends rcube_plugin {
 			$identity['signature'] = $ldap_temp[0];
 		}
 
-		if ( preg_match('/^\s*<[a-zA-Z]+/', $identity['signature']) ) {
+		if ( isset($identity['signature']) && preg_match('/^\s*<[a-zA-Z]+/', $identity['signature']) ) {
 			$identity['html_signature'] = 1;
 		} else {
 			$identity['html_signature'] = 0;
