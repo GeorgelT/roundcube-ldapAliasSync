@@ -492,19 +492,19 @@ class ldapAliasSync extends rcube_plugin {
 		$SCHEMES = array('ldap', 'ldaps', 'ldapi');
 
 		// Set default values for empty config parameters
-		if (! $config['scheme']) {
+		if (! isset($config['scheme'])) {
 			$config['scheme'] = 'ldap';
 		}
-		if (! $config['server']) {
+		if (! isset($config['server'])) {
 			$config['server'] = 'localhost';
 		}
-		if (! $config['port']) {
+		if (! isset($config['port'])) {
 			$config['port'] = '389';
 		}
-		if (! $config['bind_dn']) {
+		if (! isset($config['bind_dn'])) {
 			$config['bind_dn'] = '';
 		}
-		if (! $config['bind_pw']) {
+		if (! isset($config['bind_pw'])) {
 			$config['bind_pw'] = '';
 		}
 
@@ -518,13 +518,13 @@ class ldapAliasSync extends rcube_plugin {
 
 	function check_mail_config($config) {
 		// Set default values for empty config parameters
-		if (! $config['search_domain']) {
+		if (! isset($config['search_domain'])) {
 			$config['search_domain'] = '';
 		}
-		if (! $config['replace_domain']) {
+		if (! isset($config['replace_domain'])) {
 			$config['replace_domain'] = false;
 		}
-		if (! $config['dovecot_separator']) {
+		if (! isset($config['dovecot_separator'])) {
 			$config['dovecot_separator'] = '';
 		}
 
@@ -537,53 +537,53 @@ class ldapAliasSync extends rcube_plugin {
 	}
 
 	function check_user_config($config) {
-		$DEREFS   = array($LDAP_DEREF_NEVER, $LDAP_DEREF_FINDING, $LDAP_DEREF_SEARCHING, $LDAP_DEREF_ALWAYS);
+		$DEREFS   = array(LDAP_DEREF_NEVER, LDAP_DEREF_FINDING, LDAP_DEREF_SEARCHING, LDAP_DEREF_ALWAYS);
 		$MAIL_BYS = array('attribute', 'dn', 'memberof', 'static');
 		$NDATTRS  = array('stop', 'skip');
 
 		// Set default values for empty config parameters
-		if (! $config['base_dn']) {
+		if (! isset($config['base_dn'])) {
 			$config['base_dn'] = '';
 		}
-		if (! $config['filter']) {
+		if (! isset($config['filter'])) {
 			$config['filter'] = '(objectClass=*)';
 		}
-		if (! $config['deref']) {
+		if (! isset($config['deref'])) {
 			$config['deref'] = 'never';
 		}
-		if (! $config['mail_by']) {
+		if (! isset($config['mail_by'])) {
 			$config['mail_by'] = 'attribute';
 		}
-		if (! $config['attr_mail']) {
+		if (! isset($config['attr_mail'])) {
 			$config['attr_mail'] = 'mail';
 		} else {
 			$config['attr_mail'] = strtolower($config['attr_mail']);
 		}
-		if (! $config['attr_local']) {
+		if (! isset($config['attr_local'])) {
 			$config['attr_local'] = '';
 		} else {
 			$config['attr_local'] = strtolower($config['attr_local']);
 		}
-		if (! $config['attr_dom']) {
+		if (! isset($config['attr_dom'])) {
 			$config['attr_dom'] = '';
 		} else {
 			$config['attr_dom'] = strtolower($config['attr_dom']);
 		}
-		if (! $config['domain_static']) {
+		if (! isset($config['domain_static'])) {
 			$config['domain_static'] = '';
 		}
-		if (! $config['ignore_domains']) {
+		if (! isset($config['ignore_domains'])) {
 			$config['ignore_domains'] = array();
 		}
-		if (! $config['non_domain_attr']) {
+		if (! isset($config['non_domain_attr'])) {
 			$config['non_domain_attr'] = 'stop';
 		}
-		if (! $config['attr_name']) {
+		if (! isset($config['attr_name'])) {
 			$config['attr_name'] = '';
 		} else {
 			$config['attr_name'] = strtolower($config['attr_name']);
 		}
-		if (! $config['attr_org']) {
+		if (! isset($config['attr_org'])) {
 			$config['attr_org'] = '';
 		} else {
 			$config['attr_org'] = strtolower($config['attr_org']);
@@ -593,12 +593,12 @@ class ldapAliasSync extends rcube_plugin {
 		} else {
 			$config['attr_reply'] = strtolower($config['attr_reply']);
 		}
-		if (! $config['attr_bcc']) {
+		if (! isset($config['attr_bcc'])) {
 			$config['attr_bcc'] = '';
 		} else {
 			$config['attr_bcc'] = strtolower($config['attr_bcc']);
 		}
-		if (! $config['attr_sig']) {
+		if (! isset($config['attr_sig'])) {
 			$config['attr_sig'] = '';
 		} else {
 			$config['attr_sig'] = strtolower($config['attr_sig']);
@@ -607,21 +607,21 @@ class ldapAliasSync extends rcube_plugin {
 		// Override values
 		switch ( $config['deref'] ) {
 			case 'never':
-				$config['deref'] = $LDAP_DEREF_NEVER;
+				$config['deref'] = LDAP_DEREF_NEVER;
 				break;
 			case 'search':
-				$config['deref'] = $LDAP_DEREF_SEARCHING;
+				$config['deref'] = LDAP_DEREF_SEARCHING;
 				break;
 			case 'find':
-				$config['deref'] = $LDAP_DEREF_FINDING;
+				$config['deref'] = LDAP_DEREF_FINDING;
 				break;
 			case 'always':
-				$config['deref'] = $LDAP_DEREF_ALWAYS;
+				$config['deref'] = LDAP_DEREF_ALWAYS;
 				break;
 		}
 
 		// Check on empty parameters
-		if (! $config['base_dn']) {
+		if (! isset($config['base_dn'])) {
 			throw new Exception('[user_search] base_dn must not be initial!');
 		}
 
@@ -663,68 +663,68 @@ class ldapAliasSync extends rcube_plugin {
 	}
 
 	function check_alias_config($config) {
-		$DEREFS   = array($LDAP_DEREF_NEVER, $LDAP_DEREF_SEARCHING, $LDAP_DEREF_FINDING, $LDAP_DEREF_ALWAYS);
+		$DEREFS   = array(LDAP_DEREF_NEVER, LDAP_DEREF_SEARCHING, LDAP_DEREF_FINDING, LDAP_DEREF_ALWAYS);
 		$MAIL_BYS = array('attribute', 'dn', 'memberof', 'static');
 		$NDATTRS  = array('stop', 'skip');
 
 		// Set default values for empty config parameters
-		if (! $config['base_dn']) {
+		if (! isset($config['base_dn'])) {
 			$config['base_dn'] = '';
 		}
-		if (! $config['filter']) {
+		if (! isset($config['filter'])) {
 			$config['filter'] = '(objectClass=*)';
 		}
-		if (! $config['deref']) {
+		if (! isset($config['deref'])) {
 			$config['deref'] = 'never';
 		}
-		if (! $config['mail_by']) {
+		if (! isset($config['mail_by'])) {
 			$config['mail_by'] = 'attribute';
 		}
-		if (! $config['attr_mail']) {
+		if (! isset($config['attr_mail'])) {
 			$config['attr_mail'] = 'mail';
 		} else {
 			$config['attr_mail'] = strtolower($config['attr_mail']);
 		}
-		if (! $config['attr_local']) {
+		if (! isset($config['attr_local'])) {
 			$config['attr_local'] = '';
 		} else {
 			$config['attr_local'] = strtolower($config['attr_local']);
 		}
-		if (! $config['attr_dom']) {
+		if (! isset($config['attr_dom'])) {
 			$config['attr_dom'] = '';
 		} else {
 			$config['attr_dom'] = strtolower($config['attr_dom']);
 		}
-		if (! $config['domain_static']) {
+		if (! isset($config['domain_static'])) {
 			$config['domain_static'] = '';
 		}
-		if (! $config['ignore_domains']) {
+		if (! isset($config['ignore_domains'])) {
 			$config['ignore_domains'] = array();
 		}
-		if (! $config['non_domain_attr']) {
+		if (! isset($config['non_domain_attr'])) {
 			$config['non_domain_attr'] = 'stop';
 		}
-		if (! $config['attr_name']) {
+		if (! isset($config['attr_name'])) {
 			$config['attr_name'] = '';
 		} else {
 			$config['attr_name'] = strtolower($config['attr_name']);
 		}
-		if (! $config['attr_org']) {
+		if (! isset($config['attr_org'])) {
 			$config['attr_org'] = '';
 		} else {
 			$config['attr_org'] = strtolower($config['attr_org']);
 		}
-		if (! $config['attr_reply']) {
+		if (! isset($config['attr_reply'])) {
 			$config['attr_reply'] = '';
 		} else {
 			$config['attr_reply'] = strtolower($config['attr_reply']);
 		}
-		if (! $config['attr_bcc']) {
+		if (! isset($config['attr_bcc'])) {
 			$config['attr_bcc'] = '';
 		} else {
 			$config['attr_bcc'] = strtolower($config['attr_bcc']);
 		}
-		if (! $config['attr_sig']) {
+		if (! isset($config['attr_sig'])) {
 			$config['attr_sig'] = '';
 		} else {
 			$config['attr_sig'] = strtolower($config['attr_sig']);
@@ -733,21 +733,21 @@ class ldapAliasSync extends rcube_plugin {
 		// Override values
 		switch ( $config['deref'] ) {
 			case 'never':
-				$config['deref'] = $LDAP_DEREF_NEVER;
+				$config['deref'] = LDAP_DEREF_NEVER;
 				break;
 			case 'search':
-				$config['deref'] = $LDAP_DEREF_SEARCHING;
+				$config['deref'] = LDAP_DEREF_SEARCHING;
 				break;
 			case 'find':
-				$config['deref'] = $LDAP_DEREF_FINDING;
+				$config['deref'] = LDAP_DEREF_FINDING;
 				break;
 			case 'always':
-				$config['deref'] = $LDAP_DEREF_ALWAYS;
+				$config['deref'] = LDAP_DEREF_ALWAYS;
 				break;
 		}
 
 		// Check on empty parameters
-		if (! $config['base_dn']) {
+		if (! isset($config['base_dn'])) {
 			throw new Exception('[alias_search] base_dn must not be initial!');
 		}
 
@@ -792,13 +792,13 @@ class ldapAliasSync extends rcube_plugin {
 		$LOG_LEVELS = array(3, 2, 1, 0);
 
 		// Set default values for empty parameters
-		if (! $config['log_level']) {
+		if (! isset($config['log_level'])) {
 			$config['log_level'] = 'error';
 		}
-		if (! $config['update_existing']) {
+		if (! isset($config['update_existing'])) {
 			$config['update_existing'] = false;
 		}
-		if (! $config['update_empty_fields']) {
+		if (! isset($config['update_empty_fields'])) {
 			$config['update_empty_fields'] = false;
 		}
 
